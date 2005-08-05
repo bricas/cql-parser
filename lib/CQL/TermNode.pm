@@ -127,6 +127,25 @@ sub toXCQL {
     return $self->addNamespace( $level, $xml );
 }
 
+=head2 toLucene()
+
+=cut
+
+sub toLucene {
+    my $self      = shift;
+    my $qualifier = maybeQuote( $self->getQualifier() );
+    my $term      = maybeQuote( $self->getTerm() );
+    my $relation  = $self->getRelation();
+
+    my $query; 
+    if ( $qualifier and $qualifier !~ /srw\.serverChoice/i ) { 
+        $query = $qualifier . $relation->toLucene() . $term;
+    } else {
+        $query = $term;
+    }
+    return $query;
+}
+
 sub maybeQuote {
     my $str = shift;
     return if ! defined $str;

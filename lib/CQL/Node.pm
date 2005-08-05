@@ -48,6 +48,15 @@ sub toSwish {
     croak( ref($self) . " forgot to implement toSwish()!!!" );
 }
 
+=head2 toLucene()
+
+=cut
+
+sub toLucene {
+    my $self = shift;
+    croak( ref($self) . " forgot to implement toLucene()!!!" );
+}
+
 =head2 clone()
 
 Creates a copy of a node, and it's children. Useful if you want to modify

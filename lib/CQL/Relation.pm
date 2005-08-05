@@ -94,5 +94,12 @@ sub toXCQL {
     return $self->addNamespace( $level, $xml );
 }
 
+=head2 toLucene()
+
+=cut
+
+sub toLucene {
+    return shift->{modifierSet}->toLucene();
+}
 
 1;

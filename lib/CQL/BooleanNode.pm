@@ -104,6 +104,22 @@ sub toXCQL {
     return $self->addNamespace( $level, $xml );
 }
 
+=head2 toLucene()
+
+=cut
+
+sub toLucene {
+    my $self     = shift;
+    my $left     = $self->left();
+    my $right    = $self->right();
+    my $leftStr  = $left->isa('CQL::TermNode') ? $left->toLucene() 
+        : '('.$left->toLucene().')';  
+    my $rightStr = $right->isa('CQL::TermNode') ? $right->toLucene() 
+        : '('.$right->toLucene().')';
+
+    return  $leftStr . " " . uc( $self->op() ) . " " . $rightStr;
+}
+
 sub opXCQL {
     my ($self,$level) = @_;
     return 

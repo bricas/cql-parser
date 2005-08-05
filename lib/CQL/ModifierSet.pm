@@ -131,6 +131,17 @@ sub toXCQL {
     return $buffer;
 }
 
+=head2 toLucene()
 
+=cut
+
+sub toLucene {
+    my $self = shift;
+    croak( 'Lucene does not support relational modifiers' )
+        if @{ $self->{modifiers} } > 0;
+    my $base = $self->getBase();
+    return ':' if $base eq '='; 
+    croak( "Lucene doesn't support relations other than '='" );
+}
 
 1;
