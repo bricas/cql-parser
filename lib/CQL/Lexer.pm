@@ -167,7 +167,7 @@ sub _analyze {
         }
 
         ## if it's just whitespace we can zap it
-        elsif ( $token =~ / +/ ) { 
+        elsif ( $token =~ /\s+/ ) { 
             ## ignore 
         }
 

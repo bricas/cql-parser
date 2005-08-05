@@ -1,5 +1,9 @@
 Change History
 
+v0.9 Fri Aug  5 09:37:01 CDT 2005
+- added whitespace fix so phrases with trailing "\n" will parse (thanks Mike
+  Taylor)
+
 v0.8    Thu Apr  7 10:17:02 CDT 2005
 - added Class::Accessor to Makefile.PL (thanks Mike Taylor)
 

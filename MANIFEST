@@ -29,4 +29,5 @@ t/swish.t
 t/term.t
 t/token.t
 t/visitor.t
+t/whitespace.t
 META.yml                                Module meta-data (added by MakeMaker)
