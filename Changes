@@ -1,0 +1,33 @@
+Change History
+
+v0.8    Thu Apr  7 10:17:02 CDT 2005
+- added Class::Accessor to Makefile.PL (thanks Mike Taylor)
+
+v0.7    Mon Feb 21 09:33:35 CST 2005
+- added namespace declaration to top element in XCQL output
+
+v0.6    ???
+- forgot to add comments about this release :(
+
+v0.51   Thu Dec 16 22:38:32 CST 2004
+- needed to make CQL::TermNode inherit from CQL::Node
+
+v0.5    Thu Dec 16 22:20:02 CST 2004
+- added ability to clone a parse tree courtesy of Ray Finch's Clone
+
+v0.4    Tue Dec 14 22:21:00 CST 2004
+- added CQL::Visitor for transforming parse trees
+
+v0.3    Sun Dec  5 14:58:00 CST 2004
+- fixed bug in relation toXCQL()
+
+v0.2    Tue Sep 14 20:52:54 CDT 2004
+- add toXCQL() functionality
+
+v0.11   Tue Sep 14 00:24:06 CDT 2004
+- forgot to give mad props to Mike Taylor at IndexData who wrote 
+  cql-java which CQL is essentially a Perl port of.
+
+v0.1    Mon Sep 13 23:58:31 CDT 2004
+- initial release
+
