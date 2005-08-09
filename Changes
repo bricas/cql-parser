@@ -1,6 +1,9 @@
 Change History
 
-v0.9 Fri Aug  5 09:37:01 CDT 2005
+v0.91   Mon Aug  8 21:57:20 CDT 2005
+- added toLucene()
+
+v0.9    Fri Aug  5 09:37:01 CDT 2005
 - added whitespace fix so phrases with trailing "\n" will parse (thanks Mike
   Taylor)
 

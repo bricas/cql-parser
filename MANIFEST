@@ -22,6 +22,7 @@ t/boolean.t
 t/clone.t
 t/error.t
 t/lexer.t
+t/lucene.t
 t/parser.t
 t/prefix.t
 t/relation.t
