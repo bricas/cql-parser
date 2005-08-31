@@ -24,6 +24,8 @@ Examples could include:
 
 =item * dc.creator=george
 
+=back
+
 =head1 METHODS
 
 =head2 new()
