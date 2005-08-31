@@ -1,5 +1,8 @@
 package CQL::Visitor;
 
+use strict;
+use warnings;
+
 =head1 NAME
 
 CQL::Visitor - visit nodes in a CQL parse tree
