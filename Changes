@@ -1,5 +1,9 @@
 Change History
 
+v0.92   Thu Sep  1 12:14:10 CDT 2005
+- pod fixes
+- added pod test
+
 v0.91   Mon Aug  8 21:57:20 CDT 2005
 - added toLucene()
 
