@@ -15,5 +15,6 @@ WriteMakefile(
                             'Test::Exception'   => '0.2',
                             'Clone'             => '0.15',
                             'Class::Accessor'   => '0.1',
+                            'Sub::Uplevel'      => 0,
 			    },
 );
