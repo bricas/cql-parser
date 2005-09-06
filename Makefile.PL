@@ -14,7 +14,6 @@ WriteMakefile(
                             'String::Tokenizer' => '0.05',
                             'Test::Exception'   => '0.2',
                             'Clone'             => '0.15',
-                            'Class::Accessor'   => '0.1',
-                            'Sub::Uplevel'      => 0,
+                            'Class::Accessor'   => '0.1'
 			    },
 );
