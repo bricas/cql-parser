@@ -1,14 +1,15 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         CQL-Parser
-version:      0.91
+version:      0.92
 version_from: lib/CQL/Parser.pm
 installdirs:  site
 requires:
     Class::Accessor:               0.1
     Clone:                         0.15
     String::Tokenizer:             0.05
+    Sub::Uplevel:                  0
     Test::Exception:               0.2
 
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+generated_by: ExtUtils::MakeMaker version 6.30
