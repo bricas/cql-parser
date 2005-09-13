@@ -116,6 +116,7 @@ sub toSwish {
 
 sub toXCQL {
     my ($self,$level,@prefixes) = @_;
+    $level  = 0 unless $level;
     my $xml = 
         indent($level) . "<searchClause>\n" .
         renderPrefixes($level+1,@prefixes) .
