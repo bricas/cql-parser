@@ -8,8 +8,7 @@ requires:
     Class::Accessor:               0.1
     Clone:                         0.15
     String::Tokenizer:             0.05
-    Sub::Uplevel:                  0
-    Test::Exception:               0.2
+    Test::Exception:               0.21
 
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+generated_by: ExtUtils::MakeMaker version 6.17
