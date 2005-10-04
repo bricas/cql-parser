@@ -32,6 +32,15 @@ $node = $parser->parse( qq(("paper folding" or origami) and japanese) );
 is( $node->toLucene(), qq(("paper folding" OR origami) AND japanese), 
     'nesting with parens' );
 
+$node = $parser->parse(qq(author = /fuzzy tailor));
+is( $node->toLucene(), qq(author:tailor~), 'relation modifier of fuzzy search');
+
+$node = $parser->parse(qq(complete prox dinosaur));
+is( $node->toLucene(), qq("complete dinosaur"~1), "proximity search");
+
+$node = $parser->parse(qq(ribs prox/>/5/paragraph chevrons));
+is( $node->toLucene(), qq("ribs chevrons"~5), "proximity search, ignore unsupported parameters");
+
 $node = $parser->parse( "title exact fish" );
 throws_ok 
     { $node->toLucene() }

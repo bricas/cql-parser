@@ -117,7 +117,10 @@ sub toLucene {
     my $rightStr = $right->isa('CQL::TermNode') ? $right->toLucene() 
         : '('.$right->toLucene().')';
 
-    return  $leftStr . " " . uc( $self->op() ) . " " . $rightStr;
+    return  join( ' ', $leftStr, uc $self->op(), $rightStr ) if $self->op() !~ /prox/;
+
+    my $distance = ( split /\//, $self->op() )[ 2 ] || 1;
+    return "\"$leftStr $rightStr\"~$distance";
 }
 
 sub opXCQL {

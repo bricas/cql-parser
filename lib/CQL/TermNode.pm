@@ -142,11 +142,26 @@ sub toLucene {
 
     my $query; 
     if ( $qualifier and $qualifier !~ /srw\.serverChoice/i ) { 
-        $query = $qualifier . $relation->toLucene() . $term;
-    } else {
-        $query = $term;
+        my $base      = $relation->getBase();
+        my @modifiers = $relation->getModifiers();
+
+        foreach my $m ( @modifiers ) {
+            if( $m->[ 1 ] eq 'fuzzy' ) {
+                $term = "$term~";
+            }
+        }
+
+	if( $base eq '=' ) {
+	        $base = ':';
+	}
+	else {
+		croak( "Lucene doesn't support relations other than '='" );
+	}
+        return "$qualifier$base$term";
     }
-    return $query;
+    else {
+        return $term;
+    }
 }
 
 sub maybeQuote {
