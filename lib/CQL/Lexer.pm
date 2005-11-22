@@ -154,6 +154,12 @@ sub _analyze {
             $iterator->nextToken();
         } 
 
+        ## <>
+        elsif ( $token eq '<' and $iterator->lookAheadToken() eq '>' ) {
+            push( @tokens, CQL::Token->new( '<>') );
+            $iterator->nextToken();
+        }
+
         ## >=
         elsif ( $token eq '>' and $iterator->lookAheadToken() eq '=' ) {
             push( @tokens, CQL::Token->new( '>=' ) );

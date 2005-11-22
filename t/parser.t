@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More qw( no_plan );
+use Test::More tests => 32; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
@@ -93,13 +93,16 @@ $root = $parser->parse( 'complete prox/<=/1/word/ordered dinosaur' );
 is( $root->toCQL(), '(complete) prox/<=/1/word/ordered (dinosaur)',
     'complete prox/<=/1 dinosaur/word/ordered' );
 isa_ok( $root, 'CQL::ProxNode' );
-print $root->toXCQL(),"\n";
 
 ## complete prox/<=/1/word/bogus dinosaur
 throws_ok
     { $parser->parse( 'complete prox/<=/1/word/bogus dinosaur' ) }
     qr/expected proximity ordering got bogus/,
     'expected proximity ordering got bogus';
+
+## some versions didn't handle <> 
+$root = $parser->parse('dc.title <> app');
+is( 'dc.title <> app', $root->toCQL(), '<> works' );
 
 ## prefix
 $root = $parser->parse( 

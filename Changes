@@ -1,5 +1,9 @@
 Change History
 
+v0.95   Tue Nov 22 10:15:56 CST 2005
+- bug fix to Lexer.pm to recognize <> tokens! Thanks Wilbert Hengst at 
+  University of Amsterdam.
+
 v0.94   Tue Oct  4 2005
 - added fuzzy and proximity searching for toLucene() (thanks
   Xiaorong Xiang and Eric Lease Morgan of the ockham project)

@@ -13,7 +13,7 @@ use CQL::PrefixNode;
 use CQL::ProxNode;
 use Carp qw( croak );
 
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 
 my $lexer;
 my $token;
@@ -108,7 +108,7 @@ sub parse {
 
     my $root = parseQuery( 'srw.ServerChoice', CQL::Relation->new( 'scr' ) );
     if ( $token->getType() != CQL_EOF ) { 
-        croak( "junk after end ".$token-getString() );
+        croak( "junk after end ".$token->getString() );
     }
     
     return $root;

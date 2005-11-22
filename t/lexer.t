@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More qw( no_plan );
+use Test::More tests => 27;
 use CQL::Token;
 
 ## test the CQL Lexer
