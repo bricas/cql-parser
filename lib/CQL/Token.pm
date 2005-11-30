@@ -109,8 +109,12 @@ our @EXPORT = qw(
 sub new {
     my ($class,$string) = @_;
     my $type;
-    if ( exists($lookupTable{$string}) ) {
-        $type = $lookupTable{$string};
+
+    # see if it's a reserved word, which are case insensitive
+    my $normalString = lc($string);
+    if ( exists($lookupTable{$normalString}) ) {
+        $string = $normalString;
+        $type = $lookupTable{$normalString};
     }
     else {
         $type = CQL_WORD;

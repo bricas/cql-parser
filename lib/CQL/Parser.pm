@@ -13,7 +13,7 @@ use CQL::PrefixNode;
 use CQL::ProxNode;
 use Carp qw( croak );
 
-our $VERSION = '0.95';
+our $VERSION = '0.96';
 
 my $lexer;
 my $token;
@@ -381,7 +381,11 @@ for more information about Ockham.
 
 =over 4
 
-=item * Ed Summers <ehs@pobox.com>
+=item * Ed Summers - ehs at pobox dot com
+
+=item * Brian Cassidy - brian.cassidy at gmail dot com
+
+=item * Wilbert Hengst - W.Hengst at uva dot nl
 
 =cut
 

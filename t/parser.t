@@ -1,11 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 32; 
+use Test::More tests => 33; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
-
-
 
 my $parser = CQL::Parser->new();
 isa_ok( $parser, 'CQL::Parser' );
@@ -103,6 +101,10 @@ throws_ok
 ## some versions didn't handle <> 
 $root = $parser->parse('dc.title <> app');
 is( 'dc.title <> app', $root->toCQL(), '<> works' );
+
+## foo oR bar  
+$root = $parser->parse("foo oR bar");
+is( '(foo) or (bar)', $root->toCQL(), 'keywords case insensitive' );
 
 ## prefix
 $root = $parser->parse( 

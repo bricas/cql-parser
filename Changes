@@ -1,5 +1,10 @@
 Change History
 
+v0.96   Wed Nov 30 14:00:08 CST 2005
+- reserved words are now case insensitive, thanks Wilbert
+- added test of case insensitivity to t/parser.t
+- added brian and wilbert to the list of authors
+
 v0.95   Tue Nov 22 10:15:56 CST 2005
 - bug fix to Lexer.pm to recognize <> tokens! Thanks Wilbert Hengst at 
   University of Amsterdam.
