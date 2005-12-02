@@ -102,9 +102,9 @@ throws_ok
 $root = $parser->parse('dc.title <> app');
 is( 'dc.title <> app', $root->toCQL(), '<> works' );
 
-## foo oR bar  
-$root = $parser->parse("foo oR bar");
-is( '(foo) or (bar)', $root->toCQL(), 'keywords case insensitive' );
+## Foo oR bar  
+$root = $parser->parse("Foo oR bar");
+is( '(Foo) or (bar)', $root->toCQL(), 'keywords case insensitive' );
 
 ## prefix
 $root = $parser->parse( 
