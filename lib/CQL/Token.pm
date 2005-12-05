@@ -113,7 +113,6 @@ sub new {
     # see if it's a reserved word, which are case insensitive
     my $normalString = lc($string);
     if ( exists($lookupTable{$normalString}) ) {
-        $string = $normalString;
         $type = $lookupTable{$normalString};
     }
     else {
