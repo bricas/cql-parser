@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 33; 
+use Test::More tests => 34; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
@@ -112,4 +112,9 @@ $root = $parser->parse(
 isa_ok( $root, 'CQL::PrefixNode' );
 is( $root->toCQL(), '>dc="http://zthes.z3950.org/cql/1.0" ((foo) and (bar))',
     'toCQL()' );
+
+## oR, though a case insensitive keyword is also a valid search term
+## and should preserve its case if it is a search term
+$root = $parser->parse( 'Or oR OR' );
+is( $root->toCQL(), '(Or) or (OR)', 'preserve case for keywords in term' );
 
