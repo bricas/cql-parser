@@ -383,7 +383,7 @@ for more information about Ockham.
 
 =item * Ed Summers - ehs at pobox dot com
 
-=item * Brian Cassidy - brian.cassidy at gmail dot com
+=item * Brian Cassidy - bricas at cpan dot org
 
 =item * Wilbert Hengst - W.Hengst at uva dot nl
 
