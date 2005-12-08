@@ -60,7 +60,7 @@ sub toLucene {
 =head2 clone()
 
 Creates a copy of a node, and it's children. Useful if you want to modify
-the tree but kee a copy of the original. 
+the tree but keep a copy of the original. 
 
 =cut
 
