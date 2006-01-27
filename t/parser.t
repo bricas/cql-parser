@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 34; 
+use Test::More tests => 62; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
@@ -118,3 +118,41 @@ is( $root->toCQL(), '>dc="http://zthes.z3950.org/cql/1.0" ((foo) and (bar))',
 $root = $parser->parse( 'Or oR OR' );
 is( $root->toCQL(), '(Or) or (OR)', 'preserve case for keywords in term' );
 
+## relation modifiers
+sub testModifier {
+	my ($query, $modifier) = @_;
+	$root = $parser->parse( $query );
+	isa_ok( $root, 'CQL::TermNode' );
+	my @modifiers = $root->getRelation()->getModifiers();
+	is($modifiers[0][1], $modifier, "relation modifier $modifier");
+	is( $root->toCQL(), $query, $query );
+}
+
+testModifier('dc.title =/word "two words"', 'word');
+testModifier('dc.title =/string "one string"', 'string');
+testModifier('dc.date >=/isoDate 2006', 'isoDate');
+testModifier('uba.price <=/number 1000', 'number');
+testModifier('dc.ident =/uri "http://foo.bar"', 'uri');
+testModifier('dc.title =/masked foo*', 'masked');
+testModifier('dc.tilte =/unmasked foo*', 'unmasked');
+
+## Escaped double quote
+$root = $parser->parse( '"\""' );
+isa_ok( $root, 'CQL::TermNode' );
+is( $root->getTerm(), '"', 'double quote term');
+is( $root->toCQL(), '"\""', 'toCQL() escaped double quote');
+my $xcql = $root->toXCQL(0);
+ok( $xcql =~ /<term>"<\/term>/g, 'toXCQL() should give only one bare " in term element');
+## Fix for syntax highlighting Epic Perl plugin for Eclipse: '
+
+## Preserve all other escapes and don't escape a double escaped double quote 
+$root = $parser->parse( '"\n \\\\"' );
+is( $root->toCQL(), '"\n \\\\"', 'Preserve all escapes');
+
+## triple escape in double quotes
+$root = $parser->parse( '"\\\\\\""' );
+is( $root->toCQL(), '"\\\\\\""', 'triple escaped double quote in double quotes');
+
+## escape without double quotes
+$root = $parser->parse( 'without\quotes' );
+is( $root->toCQL(), 'without\quotes', 'escape without double quotes');
