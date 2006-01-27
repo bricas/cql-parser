@@ -2,6 +2,7 @@ package CQL::Lexer;
 
 use strict;
 use warnings;
+use Carp qw( croak );
 use String::Tokenizer;
 use CQL::Token;
 
@@ -62,7 +63,7 @@ sub tokenize {
 
     ## delegate to String::Tokenizer for basic tokenization
     debug( "tokenizing: $string" );
-    $tokenizer->tokenize( $string, '/<>=()"',
+    $tokenizer->tokenize( $string, '\/<>=()"',
         String::Tokenizer->RETAIN_WHITESPACE );
 
     ## do a bit of lexical analysis on the results of basic
@@ -141,6 +142,64 @@ sub reset {
     shift->{position} = 0;
 }
 
+## Private sub used by _analyze for collecting a backslash escaped string terminated by "
+sub _getString {
+    my $iterator = shift;
+    my $string = '"';
+    my $escaping = 0;
+    # loop through the tokens untill an unescaped " found
+    while ($iterator->hasNextToken()) {
+        my $token = $iterator->nextToken();
+        $string .= $token;
+        if ($escaping) {
+        	$escaping = 0;
+        } elsif ($token eq '"') {       
+        	return $string;
+        } elsif ($token eq "\\") {
+        	$escaping = 1;
+        }
+    }
+    croak( 'unterminated string ' . $string);
+}
+
+## Private sub used by _analyze to process \ outside double quotes.
+## Because we tokenized on \ any \ outside double quotes (inside is handled by _getString)
+## might need to be concatenated with a previous and or next CQL_WORD to form one CQL_WORD token
+sub _concatBackslash {
+	my $tokensRef = shift;
+    my $i = 0;
+    while ($i < @$tokensRef) {
+    	my $token = $$tokensRef[$i];
+    	if ($token->getString() eq "\\") {
+    		my $s = "\\";
+    		my $replace = 0;
+    		if ($i > 0) {
+    			my $prevToken = $$tokensRef[$i - 1];
+    			if (($prevToken->getType() == CQL_WORD) and !$prevToken->{terminated}) {
+    				# concatenate and delete the previous CQL_WORD token
+    				$s = $prevToken->getString() . $s;
+    				$i--;
+    				splice @$tokensRef, $i, 1;
+    				$replace = 1;
+    			}
+    		}
+    		if (!$token->{terminated} and ($i < $#$tokensRef)) {
+    			my $nextToken = $$tokensRef[$i + 1];
+    			if ($nextToken->getType() == CQL_WORD) {
+    				# concatenate and delete the next CQL_WORD token
+    				$s .= $nextToken->getString();
+    				splice @$tokensRef, $i + 1, 1;
+    				$replace = 1;
+    			}
+    		}
+    		if ($replace) {
+    			$$tokensRef[$i] = CQL::Token->new($s);
+    		}
+    	}
+    	$i++;
+    }
+}
+
 sub _analyze { 
     my $tokenizer = shift;
 
@@ -168,21 +227,31 @@ sub _analyze {
 
         ## "quoted strings"
         elsif ( $token eq '"' ) {
-            my $string = join( '', $iterator->collectTokensUntil( '"' ) );
-            push( @tokens, CQL::Token->new( qq("$string") ) );
+        	my $cqlToken = CQL::Token->new( _getString($iterator) );
+        	## Mark this and the previous token as terminated to prevent concatenation with backslash
+        	$cqlToken->{terminated} = 1;
+        	if (@tokens) { $tokens[$#tokens]->{terminated} = 1; }
+            push( @tokens, $cqlToken );
         }
 
         ## if it's just whitespace we can zap it
         elsif ( $token =~ /\s+/ ) { 
-            ## ignore 
+            ## Mark the previous token as terminated to prevent concatenation with backslash
+            if (@tokens) {
+            	$tokens[$#tokens]->{terminated} = 1;
+            }
         }
 
         ## otherwise it's fine the way it is 
         else {
             push( @tokens, CQL::Token->new($token) );
         }
-
-    }
+	        
+    } # while
+    
+    ## Concatenate \ outside double quotes with a previous and or next CQL_WORD to form one CQL_WORD token
+    _concatBackslash(\@tokens);
+    
     return @tokens;
 }
 
