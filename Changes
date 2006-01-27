@@ -1,5 +1,11 @@
 Change History
 
+v0.97	Fri Jan 27 14:22:22 GMT 2006
+- fixed bug not preserving the case of reserved words in search terms
+- added handling escaped double quotes in double quoted string
+- added relation modifiers word, string, isoDate, number, uri, masked, unmasked
+- added tests for these three to t/parser.t
+
 v0.96   Wed Nov 30 14:00:08 CST 2005
 - reserved words are now case insensitive, thanks Wilbert
 - added test of case insensitivity to t/parser.t
