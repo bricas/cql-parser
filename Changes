@@ -1,6 +1,13 @@
 Change History
 
-v0.97	Fri Jan 27 14:22:22 GMT 2006
+v0.98   Mon Feb 13 23:13:25 EST 2006
+- added 'within' and 'encloses' relations 
+- added 'partial' relation qualifier
+- added tests for the above
+- thanks for the above to Sol Lederman
+- removed tabs
+
+v0.97   Fri Jan 27 14:22:22 GMT 2006
 - fixed bug not preserving the case of reserved words in search terms
 - added handling escaped double quotes in double quoted string
 - added relation modifiers word, string, isoDate, number, uri, masked, unmasked

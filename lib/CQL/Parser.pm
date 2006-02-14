@@ -13,7 +13,7 @@ use CQL::PrefixNode;
 use CQL::ProxNode;
 use Carp qw( croak );
 
-our $VERSION = '0.97';
+our $VERSION = '0.98';
 
 my $lexer;
 my $token;
@@ -287,7 +287,8 @@ sub isBaseRelation {
     }
     my $type = $token->getType();
     return( isProxRelation() or $type==CQL_ANY or $type==CQL_ALL 
-        or $type==CQL_EXACT or $type==CQL_SCR or $type==CQL_WORD );
+        or $type==CQL_EXACT or $type==CQL_SCR or $type==CQL_WORD 
+        or $type==CQL_WITHIN or $type==CQL_ENCLOSES);
 }
 
 sub isProxRelation {
@@ -306,7 +307,8 @@ sub isRelationModifier {
     return ($type==CQL_RELEVANT or $type==CQL_FUZZY or $type==CQL_STEM
         or $type==CQL_PHONETIC or $type==CQL_PWORD or $type==CQL_STRING
         or $type==CQL_ISODATE or $type==CQL_NUMBER or $type==CQL_URI
-        or $type==CQL_MASKED or $type==CQL_UNMASKED);
+        or $type==CQL_PARTIAL or $type==CQL_MASKED or $type==CQL_UNMASKED
+        or $type==CQL_NWSE);
 }
 
 sub match {

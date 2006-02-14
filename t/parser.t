@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 62; 
+use Test::More tests => 66; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
@@ -156,3 +156,20 @@ is( $root->toCQL(), '"\\\\\\""', 'triple escaped double quote in double quotes')
 ## escape without double quotes
 $root = $parser->parse( 'without\quotes' );
 is( $root->toCQL(), 'without\quotes', 'escape without double quotes');
+
+## new relations
+$root = $parser->parse('dc.date within/cql.isoDate "2004-04-06 2004-04-23"');
+is('dc.date within/cql.isoDate "2004-04-06 2004-04-23"', $root->toCQL(),
+'within');
+
+$root = $parser->parse('xxx.dateRange encloses 2002');
+is('xxx.dateRange encloses 2002', $root->toCQL(), 'encloses');
+
+$root = $parser->parse('gils.bounds within/partial/nwse "36.5 -106.7 25.8 -93.5"');
+is('gils.bounds within/partial/nwse "36.5 -106.7 25.8 -93.5"', $root->toCQL(),
+'nwse');
+
+$root = $parser->parse('gils.begdate <= /isoDate "20051201,20051231"');
+is('gils.begdate <=/isoDate 20051201,20051231', $root->toCQL(), 'isoDate');
+
+

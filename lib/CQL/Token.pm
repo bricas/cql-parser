@@ -30,41 +30,45 @@ CQL::Lexer since the lexer is used behind the scenes by CQL::Parser.
 =cut
 
 ## CQL keyword types
-use constant CQL_LT        => 100;  ## The "<" relation
-use constant CQL_GT        => 101;  ## The ">" relation
-use constant CQL_EQ        => 102;  ## The "=" relation
-use constant CQL_LE        => 103;	## The "<=" relation
-use constant CQL_GE        => 104;	## The ">=" relation
-use constant CQL_NE        => 105;	## The "<>" relation
-use constant CQL_AND       => 106;	## The "and" boolean
-use constant CQL_OR        => 107;	## The "or" boolean
-use constant CQL_NOT       => 108;	## The "not" boolean
-use constant CQL_PROX      => 109;	## The "prox" boolean
-use constant CQL_ANY       => 110;	## The "any" relation
-use constant CQL_ALL       => 111;	## The "all" relation
-use constant CQL_EXACT     => 112;	## The "exact" relation
-use constant CQL_PWORD     => 113;	## The "word" proximity unit and the "word" relation modifier
-use constant CQL_SENTENCE  => 114;	## The "sentence" proximity unit
-use constant CQL_PARAGRAPH => 115;	## The "paragraph" proximity unit
-use constant CQL_ELEMENT   => 116;	## The "element" proximity unit
-use constant CQL_ORDERED   => 117;	## The "ordered" proximity ordering
-use constant CQL_UNORDERED => 118;	## The "unordered" proximity ordering
-use constant CQL_RELEVANT  => 119;	## The "relevant" relation modifier
-use constant CQL_FUZZY     => 120;	## The "fuzzy" relation modifier
-use constant CQL_STEM      => 121;	## The "stem" relation modifier
-use constant CQL_SCR       => 122;	## The server choice relation
-use constant CQL_PHONETIC  => 123;	## The "phonetic" relation modifier
-use constant CQL_WORD      => 124;  ## A general word (not an operator) 
-use constant CQL_LPAREN    => 125;  ## A left paren
-use constant CQL_RPAREN    => 126;  ## A right paren
-use constant CQL_EOF       => 127;  ## End of query
-use constant CQL_MODIFIER  => 128;  ## Start of modifier '/'
-use constant CQL_STRING    => 129;  ## The "string" relation modifier
-use constant CQL_ISODATE   => 130;  ## The "isoDate" relation modifier
-use constant CQL_NUMBER    => 131;  ## The "number" relation modifier
-use constant CQL_URI       => 132;  ## The "uri" relation modifier
-use constant CQL_MASKED    => 133;  ## The "masked" relation modifier
-use constant CQL_UNMASKED  => 134;  ## The "unmasked" relation modifier
+use constant CQL_LT        => 100;    ## The "<" relation
+use constant CQL_GT        => 101;    ## The ">" relation
+use constant CQL_EQ        => 102;    ## The "=" relation
+use constant CQL_LE        => 103;    ## The "<=" relation
+use constant CQL_GE        => 104;    ## The ">=" relation
+use constant CQL_NE        => 105;    ## The "<>" relation
+use constant CQL_AND       => 106;    ## The "and" boolean
+use constant CQL_OR        => 107;    ## The "or" boolean
+use constant CQL_NOT       => 108;    ## The "not" boolean
+use constant CQL_PROX      => 109;    ## The "prox" boolean
+use constant CQL_ANY       => 110;    ## The "any" relation
+use constant CQL_ALL       => 111;    ## The "all" relation
+use constant CQL_EXACT     => 112;    ## The "exact" relation
+use constant CQL_WITHIN    => 113;    ## The "within" relation
+use constant CQL_ENCLOSES  => 114;    ## The "encloses" relation
+use constant CQL_PARTIAL   => 115;    ## The "partial" relation
+use constant CQL_PWORD     => 116;    ## The "word" proximity unit and the "word" relation modifier
+use constant CQL_SENTENCE  => 117;    ## The "sentence" proximity unit
+use constant CQL_PARAGRAPH => 118;    ## The "paragraph" proximity unit
+use constant CQL_ELEMENT   => 119;    ## The "element" proximity unit
+use constant CQL_ORDERED   => 120;    ## The "ordered" proximity ordering
+use constant CQL_UNORDERED => 121;    ## The "unordered" proximity ordering
+use constant CQL_RELEVANT  => 122;    ## The "relevant" relation modifier
+use constant CQL_FUZZY     => 123;    ## The "fuzzy" relation modifier
+use constant CQL_STEM      => 124;    ## The "stem" relation modifier
+use constant CQL_SCR       => 125;    ## The server choice relation
+use constant CQL_PHONETIC  => 126;    ## The "phonetic" relation modifier
+use constant CQL_WORD      => 127;    ## A general word (not an operator) 
+use constant CQL_LPAREN    => 128;    ## A left paren
+use constant CQL_RPAREN    => 129;    ## A right paren
+use constant CQL_EOF       => 130;    ## End of query
+use constant CQL_MODIFIER  => 131;    ## Start of modifier '/'
+use constant CQL_STRING    => 132;    ## The "string" relation modifier
+use constant CQL_ISODATE   => 133;    ## The "isoDate" relation modifier
+use constant CQL_NUMBER    => 134;    ## The "number" relation modifier
+use constant CQL_URI       => 135;    ## The "uri" relation modifier
+use constant CQL_MASKED    => 137;    ## The "masked" relation modifier
+use constant CQL_UNMASKED  => 138;    ## The "unmasked" relation modifier
+use constant CQL_NWSE      => 139;    ## The "nwse" relation modifier
 
 ## lookup table for easily determining token type
 our %lookupTable = (
@@ -79,6 +83,9 @@ our %lookupTable = (
     'not'        => CQL_NOT,
     'prox'       => CQL_PROX,
     'any'        => CQL_ANY,
+    'within'     => CQL_WITHIN,
+    'encloses'   => CQL_ENCLOSES,
+    'partial'    => CQL_PARTIAL,
     'all'        => CQL_ALL,
     'exact'      => CQL_EXACT,
     'word'       => CQL_PWORD,
@@ -100,7 +107,8 @@ our %lookupTable = (
     'number'     => CQL_NUMBER,
     'uri'        => CQL_URI,
     'masked'     => CQL_MASKED,
-    'unmasked'   => CQL_UNMASKED
+    'unmasked'   => CQL_UNMASKED,
+    'nwse'       => CQL_NWSE,
 );
 
 ## constants available for folks to use when looking at 
@@ -112,7 +120,8 @@ our @EXPORT = qw(
     CQL_ELEMENT CQL_ORDERED CQL_UNORDERED CQL_RELEVANT CQL_FUZZY
     CQL_STEM CQL_SCR CQL_PHONETIC CQL_RPAREN CQL_LPAREN
     CQL_WORD CQL_PHRASE CQL_EOF CQL_MODIFIER CQL_STRING CQL_ISODATE
-    CQL_NUMBER CQL_URI CQL_MASKED CQL_UNMASKED
+    CQL_NUMBER CQL_URI CQL_MASKED CQL_UNMASKED CQL_WITHIN CQL_PARTIAL
+    CQL_ENCLOSES CQL_NWSE
 );
 
 =head2 new()
@@ -132,10 +141,10 @@ sub new {
         $type = CQL_WORD;
         # remove outer quotes if present
         if ($string =~ m/^"(.*)"$/g) {
-        	$string = $1;
-        	# replace escaped double quote with double quote. 
-        	# Is save this way cause the string is assumed to be syntactically correct
-        	$string =~ s/\\"/"/g;
+            $string = $1;
+            # replace escaped double quote with double quote. 
+            # Is save this way cause the string is assumed to be syntactically correct
+            $string =~ s/\\"/"/g;
         }
     }
     return bless { string=>$string, type=>$type }, ref($class) || $class;
