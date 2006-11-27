@@ -13,7 +13,7 @@ use CQL::PrefixNode;
 use CQL::ProxNode;
 use Carp qw( croak );
 
-our $VERSION = '0.98';
+our $VERSION = '1.0';
 
 my $lexer;
 my $token;
@@ -191,7 +191,7 @@ sub parseTerm {
     }
 
     debug( "qualifier=$qualifier relation=$relation term=$word" );
-    croak( "missing term" ) if !$word;
+    croak( "missing term" ) if ! defined($word) or $word eq '';
 
     my $node = CQL::TermNode->new( 
         qualifier   => $qualifier, 

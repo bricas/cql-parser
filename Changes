@@ -1,5 +1,10 @@
 Change History
 
+v1.00 Mon Nov 27 12:51:11 EST 2006
+- updated Lexer.pm and Parser.pm to allow 0 to be a valid term (thanks Ben
+  Soares at Edinburgh University Data Library)
+- added unit tests to lexer.t and parser.t for 0 as a term
+
 v0.98   Mon Feb 13 23:13:25 EST 2006
 - added 'within' and 'encloses' relations 
 - added 'partial' relation qualifier

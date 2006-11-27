@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 66; 
+use Test::More tests => 67; 
 use Test::Exception;
 
 use_ok( 'CQL::Parser' );
@@ -172,4 +172,7 @@ is('gils.bounds within/partial/nwse "36.5 -106.7 25.8 -93.5"', $root->toCQL(),
 $root = $parser->parse('gils.begdate <= /isoDate "20051201,20051231"');
 is('gils.begdate <=/isoDate 20051201,20051231', $root->toCQL(), 'isoDate');
 
+## zero is a valid term
+$root = $parser->parse('dc.title=0');
+is('dc.title = 0', $root->toCQL(), 'zero is a valid term');
 

@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 27;
+use Test::More tests => 29;
 use CQL::Token;
 
 ## test the CQL Lexer
@@ -105,7 +105,13 @@ is_deeply(
 $lexer->tokenize('"http://www.yahoo.com"');
 my @tokens = $lexer->getTokens();
 is( @tokens, 1, 'got 1 token' );
-is( $tokens[0]->getString(), 'http://www.yahoo.com'  );
+is( $tokens[0]->getString(), 'http://www.yahoo.com', 'got quoted url' );
+
+## zero is a valid token
+$lexer->tokenize('0');
+@tokens = $lexer->getTokens();
+is( @tokens, 1, 'lexed one token' );
+is( $tokens[0]->getString(), '0', 'able to lex 0' );
 
 ## helper for returning a list of strings from a list of CQL::Token objects 
 sub getStrings {
