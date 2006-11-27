@@ -205,7 +205,7 @@ sub _analyze {
 
     my $iterator = $tokenizer->iterator();
     my @tokens;
-    while ( my $token = $iterator->nextToken() ) {
+    while ( defined (my $token = $iterator->nextToken()) ) {
 
         ## <=
         if ( $token eq '<' and $iterator->lookAheadToken() eq '=' ) {
