@@ -1,6 +1,10 @@
 Change History
 
-v1.00 Mon Nov 27 12:51:11 EST 2006
+v1.1    Tue Apr 10 22:57:06 EDT 2007
+- new support for v1.1 style proximity (thanks Masao Takaku at the National
+  Institute of Informatics)
+
+v1.00   Mon Nov 27 12:51:11 EST 2006
 - updated Lexer.pm and Parser.pm to allow 0 to be a valid term (thanks Ben
   Soares at Edinburgh University Data Library)
 - added unit tests to lexer.t and parser.t for 0 as a term

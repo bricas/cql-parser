@@ -38,8 +38,8 @@ is( $not->toCQL(), '(foo) not (bar)', 'not toCQL()' );
 ## PROX
 my $prox = CQL::ProxNode->new( $term1 );
 $prox->addSecondTerm( $term2 );
-$prox->addModifier( undef, '>' );
-$prox->addModifier( undef, '2' );
+$prox->addModifier( "relation", '>' );
+$prox->addModifier( "distance", '2' );
 
 isa_ok( $prox, 'CQL::ProxNode' );
-is( $prox->toCQL(), '(foo) prox/>/2 (bar)', 'prox toCQL()' );
+is( $prox->toCQL(), '(foo) prox/distance>2 (bar)', 'prox toCQL()' );

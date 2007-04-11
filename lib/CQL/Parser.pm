@@ -222,6 +222,7 @@ sub parsePrefix {
 
 sub gatherProxParameters {
     my $node = shift;
+    if (0) {	# CQL 1.0 (obsolete)
     for (my $i=0; $i<4; $i++ ) {
         if ( $token->getType() != CQL_MODIFIER ) { 
             ## end of proximity parameters 
@@ -233,6 +234,28 @@ sub gatherProxParameters {
             elsif ( $i==1 ) { gatherProxDistance($node); }
             elsif ( $i==2 ) { gatherProxUnit($node); }
             elsif ( $i==3 ) { gatherProxOrdering($node); }
+        }
+    }
+    } else {
+        while ( $token->getType() == CQL_MODIFIER ) {
+	    match( $token );
+	    if ( $token->getType() == CQL_DISTANCE ) {
+		match( $token );
+		gatherProxRelation( $node );
+		gatherProxDistance( $node );
+	    } elsif ( $token->getType() == CQL_UNIT ) {
+		match( $token );
+		if ( $token->getType() != CQL_EQ ) {
+		    croak( "expected proximity unit parameter got ".$token->getString() );
+		}
+		match( $token );
+		gatherProxUnit( $node );
+	    } elsif ( $token->getType() == CQL_ORDERED
+		      || $token->getType() == CQL_UNORDERED ) {
+		gatherProxOrdering( $node );
+	    } else {
+		croak( "expected proximity parameter got ". $token->getString()  ."(". $token->getType() .")" );
+	    }
         }
     }
 }

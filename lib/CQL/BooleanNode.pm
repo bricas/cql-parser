@@ -119,7 +119,8 @@ sub toLucene {
 
     return  join( ' ', $leftStr, uc $self->op(), $rightStr ) if $self->op() !~ /prox/;
 
-    my $distance = ( split /\//, $self->op() )[ 2 ] || 1;
+    my $distance = 1;
+    $distance = $1 if $self->op() =~ /\/distance[=><]{1,2}(\d+)/;
     return "\"$leftStr $rightStr\"~$distance";
 }
 

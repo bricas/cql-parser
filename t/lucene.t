@@ -38,7 +38,8 @@ is( $node->toLucene(), qq(author:tailor~), 'relation modifier of fuzzy search');
 $node = $parser->parse(qq(complete prox dinosaur));
 is( $node->toLucene(), qq("complete dinosaur"~1), "proximity search");
 
-$node = $parser->parse(qq(ribs prox/>/5/paragraph chevrons));
+#$node = $parser->parse(qq(ribs prox/>/5/paragraph chevrons));
+$node = $parser->parse(qq(ribs prox/distance>=5/unit=paragraph chevrons));
 is( $node->toLucene(), qq("ribs chevrons"~5), "proximity search, ignore unsupported parameters");
 
 $node = $parser->parse( "title exact fish" );

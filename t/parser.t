@@ -51,51 +51,52 @@ is( $root->toCQL(), '(complete) prox (dinosaur)', 'complete prox dinosaur' );
 isa_ok( $root, 'CQL::ProxNode' );
 
 ## complete prox/<= dinosaur
-$root = $parser->parse( 'complete prox/<= dinosaur' );
-is( $root->toCQL(), '(complete) prox/<= (dinosaur)',
+#$root = $parser->parse( 'complete prox/<= dinosaur' );
+$root = $parser->parse( 'complete prox/distance<=1 dinosaur' );
+is( $root->toCQL(), '(complete) prox/distance<=1 (dinosaur)',
     'complete prox/<= dinosaur' );
 isa_ok( $root, 'CQL::ProxNode' );
 
 ## complete prox/bogus dinosaur
 throws_ok
     { $parser->parse( 'complete prox/bogus dinosaur') }
-    qr/expected proximity relation got bogus/,
-    'bad proximity relation';
+    qr/expected proximity parameter got bogus/,
+    'bad proximity parameter';
 
 ## complete prox/<=/1 dinosaur
-$root = $parser->parse( 'complete prox/<=/1 dinosaur');
-is( $root->toCQL(), '(complete) prox/<=/1 (dinosaur)',
+$root = $parser->parse( 'complete prox/distance<=1 dinosaur');
+is( $root->toCQL(), '(complete) prox/distance<=1 (dinosaur)',
     'complete prox/<=/1 dinosaur' );
 isa_ok( $root, 'CQL::ProxNode' );
 
 ## complete prox/<=/bogus dinosaur
 throws_ok
-    { $parser->parse( 'complete prox/<=/bogus dinosaur') }
+    { $parser->parse( 'complete prox/distance<=bogus dinosaur') }
     qr/expected proximity distance got bogus/,
     'bad proximity distance';
 
 ## complete prox/<=/1/word dinosaur
-$root = $parser->parse( 'complete prox/<=/1/word dinosaur' );
-is( $root->toCQL(), '(complete) prox/<=/1/word (dinosaur)',
+$root = $parser->parse( 'complete prox/distance<=1/unit=word dinosaur' );
+is( $root->toCQL(), '(complete) prox/distance<=1/unit=word (dinosaur)',
     'complete prox/<=/1 dinosaur/word' );
 isa_ok( $root, 'CQL::ProxNode' );
 
 ## complete prox/<=/1/bogus dinosaur
 throws_ok
-    { $parser->parse( 'complete prox/<=/bogus dinosaur') }
+    { $parser->parse( 'complete prox/distance<=bogus dinosaur') }
     qr/expected proximity distance got bogus/,
     'bad proximity distance';
 
 ## complete prox/<=/1/word/ordered dinosaur
-$root = $parser->parse( 'complete prox/<=/1/word/ordered dinosaur' );
-is( $root->toCQL(), '(complete) prox/<=/1/word/ordered (dinosaur)',
+$root = $parser->parse( 'complete prox/distance<=1/unit=word/ordered dinosaur' );
+is( $root->toCQL(), '(complete) prox/distance<=1/unit=word/ordered (dinosaur)',
     'complete prox/<=/1 dinosaur/word/ordered' );
 isa_ok( $root, 'CQL::ProxNode' );
 
 ## complete prox/<=/1/word/bogus dinosaur
 throws_ok
-    { $parser->parse( 'complete prox/<=/1/word/bogus dinosaur' ) }
-    qr/expected proximity ordering got bogus/,
+    { $parser->parse( 'complete prox/distance<=1/unit=word/bogus dinosaur' ) }
+    qr/expected proximity parameter got bogus/,
     'expected proximity ordering got bogus';
 
 ## some versions didn't handle <> 

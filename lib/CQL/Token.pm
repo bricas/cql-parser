@@ -69,6 +69,8 @@ use constant CQL_URI       => 135;    ## The "uri" relation modifier
 use constant CQL_MASKED    => 137;    ## The "masked" relation modifier
 use constant CQL_UNMASKED  => 138;    ## The "unmasked" relation modifier
 use constant CQL_NWSE      => 139;    ## The "nwse" relation modifier
+use constant CQL_DISTANCE  => 140;    ## The "distance" proximity modifier
+use constant CQL_UNIT      => 141;    ## The "unit" proximity modifier
 
 ## lookup table for easily determining token type
 our %lookupTable = (
@@ -109,6 +111,8 @@ our %lookupTable = (
     'masked'     => CQL_MASKED,
     'unmasked'   => CQL_UNMASKED,
     'nwse'       => CQL_NWSE,
+    'distance'   => CQL_DISTANCE,
+    'unit'       => CQL_UNIT,
 );
 
 ## constants available for folks to use when looking at 
@@ -122,6 +126,7 @@ our @EXPORT = qw(
     CQL_WORD CQL_PHRASE CQL_EOF CQL_MODIFIER CQL_STRING CQL_ISODATE
     CQL_NUMBER CQL_URI CQL_MASKED CQL_UNMASKED CQL_WITHIN CQL_PARTIAL
     CQL_ENCLOSES CQL_NWSE
+    CQL_DISTANCE CQL_UNIT
 );
 
 =head2 new()

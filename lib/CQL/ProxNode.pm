@@ -3,7 +3,7 @@ package CQL::ProxNode;
 use strict;
 use warnings;
 use base qw( CQL::BooleanNode );
-use CQL::ModifierSet;
+use CQL::ProxModifierSet;
 
 =head1 NAME
 
@@ -37,7 +37,7 @@ before or after the right-hand-side sub-tree is added.
 sub new {
     my ($class,$left) = @_;
     my $self = $class->SUPER::new( left => $left, right => undef );
-    $self->{modifierSet} = CQL::ModifierSet->new( 'prox' );
+    $self->{modifierSet} = CQL::ProxModifierSet->new( 'prox' );
     return $self;
 }
 
