@@ -7,7 +7,8 @@ WriteMakefile(
     'NAME'              => 'CQL-Parser',
     'DISTNAME'          => 'CQL-Parser',
     'ABSTRACT'          => 'Common Query Language Parser',
-    'VERSION_FROM'      => 'lib/CQL/Parser.pm', 
+    'VERSION_FROM'      => 'lib/CQL/Parser.pm',
+    (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
     'PMLIBDIRS'         => [ qw( lib/ ) ],
     'AUTHOR'            => 'Ed Summers <ehs@pobox.com>',
     'PREREQ_PM'         => { 
