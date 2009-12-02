@@ -96,7 +96,13 @@ THANKYOUS
 AUTHOR
     *   Ed Summers - ehs at pobox dot com
 
-    *   Brian Cassidy - brian.cassidy at gmail dot com
+    *   Brian Cassidy - bricas at cpan dot org
 
     *   Wilbert Hengst - W.Hengst at uva dot nl
+
+COPYRIGHT AND LICENSE
+    Copyright 2004-2009 by Ed Summers
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
 
