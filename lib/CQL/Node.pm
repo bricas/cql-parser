@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use base qw( Clone );
 use Carp qw( croak );
-use UNIVERSAL qw( isa );
 
 =head1 NAME
 
