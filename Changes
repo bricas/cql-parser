@@ -1,6 +1,6 @@
 Change History
 
-v1.10    XXX
+v1.10   Wed Dec 02 10:58:12 AST 2009
 - new support for v1.1 style proximity (thanks Masao Takaku at the National
   Institute of Informatics)
 - remove use of UNIVERSAL->import
