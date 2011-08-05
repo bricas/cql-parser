@@ -157,7 +157,7 @@ sub new {
 
 =head2 getType()
 
-Returns the token type which will be availble as one of the constants
+Returns the token type which will be available as one of the constants
 that CQL::Token exports. See internals for a list of available constants.
 
 =cut

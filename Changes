@@ -1,5 +1,8 @@
 Change History
 
+1.11 TO BE RELEASED
+ - Fix spelling mistake in pod (RT #70052)
+
 1.10 2009-12-02
  - new support for v1.1 style proximity (thanks Masao Takaku at the National
    Institute of Informatics)
