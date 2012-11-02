@@ -1,6 +1,7 @@
 Change History
 
-1.11 TO BE RELEASED
+1.12 TO BE RELEASED
+ - new method parseSafe with error codes
  - Fix spelling mistake in pod (RT #70052)
 
 1.10 2009-12-02
