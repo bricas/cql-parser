@@ -87,7 +87,7 @@ sub new {
     return bless { }, ref($class) || $class;
 }
 
-=head2 parse()
+=head2 parse( $query )
 
 Pass in a CQL query and you'll get back the root node for the CQL parse tree.
 If the CQL is invalid an exception will be thrown.
@@ -111,6 +111,48 @@ sub parse {
         croak( "junk after end ".$token->getString() );
     }
     
+    return $root;
+}
+
+=head2 parseSafe( $query )
+
+Pass in a CQL query and you'll get back the root node for the CQL parse tree.
+If the CQL is invalid, an error code from the SRU Diagnostics List 
+will be returned.
+
+=cut
+
+my @cql_errors = (
+    { regex => qr/does not support relational modifiers/,   code => 20 },
+    { regex => qr/expected boolean got /,                   code => 37 },
+    { regex => qr/expected relation modifier got /,         code => 20 },
+    { regex => qr/unknown first-class relation modifier: /, code => 20 },
+    { regex => qr/missing term/,                            code => 27 },
+    { regex => qr/expected proximity relation got /,        code => 40 },
+    { regex => qr/expected proximity distance got /,        code => 41 },
+    { regex => qr/expected proximity unit got/,             code => 42 },
+    { regex => qr/expected proximity ordering got /,        code => 43 },
+    { regex => qr/unknown first class relation: /,          code => 19 },
+    { regex => qr/must supply name/,                        code => 15 },
+    { regex => qr/must supply identifier/,                  code => 15 },
+    { regex => qr/must supply subtree/,                     code => 15 },
+    { regex => qr/must supply term parameter/,              code => 27 },
+    { regex => qr/doesn\'t support relations other than/,   code => 20 },
+);
+
+sub parseSafe {
+    my ($self,$query) = @_;
+
+    my $root = eval { $self->parse( $query ); };
+
+    if ( my $error = $@ ) {
+        my $code = 10;
+        for( @cql_errors ) {
+            $code = $_->{ code } if $error =~ $_->{ regex };
+        }
+        return $code;
+    }
+
     return $root;
 }
 
