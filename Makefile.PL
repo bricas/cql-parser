@@ -1,20 +1,21 @@
-use ExtUtils::MakeMaker;
-use strict;
-use warnings;
+use inc::Module::Install 1.06;
 
-## create the Makefile
-WriteMakefile(
-    'NAME'              => 'CQL-Parser',
-    'DISTNAME'          => 'CQL-Parser',
-    'ABSTRACT'          => 'Common Query Language Parser',
-    'VERSION_FROM'      => 'lib/CQL/Parser.pm',
-    (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
-    'PMLIBDIRS'         => [ qw( lib/ ) ],
-    'AUTHOR'            => 'Ed Summers <ehs@pobox.com>',
-    'PREREQ_PM'         => { 
-                            'String::Tokenizer' => '0.05',
-                            'Test::Exception'   => '0.21',
-                            'Clone'             => '0.15',
-                            'Class::Accessor'   => '0.1'
-                           },
-);
+if ( -e 'MANIFEST.SKIP' ) {
+    system( 'pod2text lib/CQL/Parser.pm > README' );
+}
+
+perl_version '5.008';
+
+name 'CQL-Parser';
+all_from 'lib/CQL/Parser.pm';
+
+requires 'String::Tokenizer' => '0.05';
+requires 'Clone'             => '0.15';
+requires 'Class::Accessor'   => '0.1';
+
+test_requires 'Test::More';
+test_requires 'Test::Exception';
+
+repository "http://github.com/bricas/cql-parser";
+
+WriteAll;
