@@ -1,5 +1,8 @@
 Change History
 
+1.13 2013-10-01
+ - don't ship MYMETA (RT #89143)
+
 1.12 2012-11-05
  - new method parseSafe with error codes
  - Fix spelling mistake in pod (RT #70052)
