@@ -16,7 +16,7 @@ CQL::Node - base class for nodes in a CQL parse tree
 =head1 DESCRIPTION
 
 All the CQL node classes inherit from CQL::Node. CQL::Node
-essentially gurantees that its children implements some methods. 
+essentially guarantees that its children implements some methods.
 
 =head2 toCQL()
 

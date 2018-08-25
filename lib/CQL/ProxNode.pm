@@ -27,7 +27,7 @@ this stage: that must be specified later, using the
 addSecondSubterm() method.  (That may seem odd, but
 it's just easier to write the parser that way.)
 
-Proximity paramaters may be added at any time,
+Proximity parameters may be added at any time,
 before or after the right-hand-side sub-tree is added.
     
     my $prox = CQL::ProxNode->new( $term );
