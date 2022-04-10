@@ -166,7 +166,7 @@ sub getType { return shift->{type}; }
 
 =head2 getString()
 
-Retruns the string equivalent of the token. Particularly useful when
+Returns the string equivalent of the token. Particularly useful when
 you only know it's a CQL_WORD.
 
 =cut

@@ -147,7 +147,7 @@ sub _getString {
     my $iterator = shift;
     my $string = '"';
     my $escaping = 0;
-    # loop through the tokens untill an unescaped " found
+    # loop through the tokens until an unescaped " found
     while ($iterator->hasNextToken()) {
         my $token = $iterator->nextToken();
         $string .= $token;
